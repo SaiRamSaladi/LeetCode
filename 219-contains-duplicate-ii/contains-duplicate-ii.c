@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define TABLE_SIZE 200003  // Large prime number for hashing
+#define TABLE_SIZE 200003  
 
 typedef struct Node {
     int key;
@@ -9,13 +9,9 @@ typedef struct Node {
 } Node;
 
 Node* hashTable[TABLE_SIZE];
-
-// Hash function (handles negative numbers)
 int hash(int key) {
     return (key % TABLE_SIZE + TABLE_SIZE) % TABLE_SIZE;
 }
-
-// Check if key exists
 bool exists(int key) {
     int h = hash(key);
     Node* curr = hashTable[h];
@@ -26,8 +22,6 @@ bool exists(int key) {
     }
     return false;
 }
-
-// Insert into hash set
 void insert(int key) {
     int h = hash(key);
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -35,8 +29,6 @@ void insert(int key) {
     newNode->next = hashTable[h];
     hashTable[h] = newNode;
 }
-
-// Remove from hash set
 void removeKey(int key) {
     int h = hash(key);
     Node* curr = hashTable[h];
@@ -54,8 +46,6 @@ void removeKey(int key) {
         curr = curr->next;
     }
 }
-
-// Clear hash table
 void clearHashTable() {
     for (int i = 0; i < TABLE_SIZE; i++) {
         Node* curr = hashTable[i];
@@ -67,8 +57,6 @@ void clearHashTable() {
         hashTable[i] = NULL;
     }
 }
-
-// Main function
 bool containsNearbyDuplicate(int* nums, int numsSize, int k) {
     clearHashTable();
 
